@@ -15,7 +15,7 @@
 - One column and one continuous section unless a verified journal requirement says otherwise.
 - Blank header.
 - Insert a centered dynamic `PAGE` field in the footer of every section. Never type a static page number.
-- Retain an explicit page break after author information and after Keywords unless the user or a verified journal requirement requests another front-matter flow.
+- Enforce a separate title page (page 1: title, authors, affiliations and corresponding-author details). Abstract must begin on page 2. Insert missing page breaks when revising existing files; do not merely retain existing ones. Abstract prose and Keywords belong together, followed by a new page for the main text (normally page 3; later if the abstract spans pages). Use a real page break or page-break-before, never blank-line padding or duplicate breaks. Verify the actual boundary locations and Word-rendered page numbers. Override only for explicit user or verified journal requirements.
 
 ### Line numbering — user amendment
 
