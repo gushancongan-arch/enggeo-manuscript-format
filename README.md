@@ -52,3 +52,7 @@ git clone https://github.com/gushancongan-arch/enggeo-manuscript-format.git "$HO
 Invoke with `/enggeo-manuscript-format`.
 
 The repository is public and can be cloned without GitHub authentication.
+
+## Microsoft Word preference
+
+Use locally installed Microsoft Word for document editing, pagination and final rendering. LibreOffice/soffice is not an automatic fallback. Structural Python/OpenXML helpers remain available, followed by Word-based visual QA. Export a PDF for inspection with `scripts/export_word_pdf.ps1 -InputDocx <absolute-docx-path> -OutputPdf <absolute-pdf-path>`. The export opens the source read-only and does not save changes or refresh external links/citation-manager fields.
