@@ -56,3 +56,7 @@ The repository is public and can be cloned without GitHub authentication.
 ## Microsoft Word preference
 
 Use locally installed Microsoft Word for document editing, pagination and final rendering. LibreOffice/soffice is not an automatic fallback. Structural Python/OpenXML helpers remain available, followed by Word-based visual QA. Export a PDF for inspection with `scripts/export_word_pdf.ps1 -InputDocx <absolute-docx-path> -OutputPdf <absolute-pdf-path>`. The export opens the source read-only and does not save changes or refresh external links/citation-manager fields.
+
+## v1.0 front-matter pagination
+
+Page 1 contains the title, authors, affiliations and corresponding-author details. Abstract starts on page 2, followed by Keywords. Main text begins on a new page (normally page 3). Insert missing boundary breaks when revising existing documents. Check the actual boundary locations and Microsoft Word pagination; counting total breaks is insufficient.
