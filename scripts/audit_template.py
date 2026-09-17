@@ -286,8 +286,24 @@ def audit_page(document: Document, document_xml, footer_xmls, header_xmls, setti
         "w:updateFields=true",
     )
 
-    page_breaks = document_xml.xpath("//w:br[@w:type='page']", namespaces=NS)
-    audit.check("front-matter page breaks", len(page_breaks) >= 2, f"page breaks={len(page_breaks)}")
+    paragraphs = document_xml.xpath("/w:document/w:body/w:p", namespaces=NS)
+    texts = ["".join(p.xpath(".//w:t/text()", namespaces=NS)).strip() for p in paragraphs]
+    abstract = next((i for i, text in enumerate(texts) if text.casefold() == "abstract"), None)
+    keywords = next((i for i, text in enumerate(texts) if text.casefold().startswith("keywords")), None)
+
+    def boundary_has_break(start, end):
+        # Only breaks in the boundary paragraphs count, not unrelated body pages.
+        nodes = paragraphs[start:end]
+        if any(p.xpath(".//w:br[@w:type='page']", namespaces=NS) for p in nodes):
+            return True
+        return bool(paragraphs[end].xpath("./w:pPr/w:pageBreakBefore[not(@w:val) or @w:val='1' or @w:val='true' or @w:val='on']", namespaces=NS))
+
+    previous = next((i for i in range((abstract or 0)-1, -1, -1) if texts[i]), None)
+    abstract_ok = abstract is not None and previous is not None and boundary_has_break(previous, abstract)
+    audit.check("title-to-abstract boundary page break", abstract_ok, "Abstract must start page 2; also verify in Microsoft Word")
+    body = next((i for i in range((keywords or 0)+1, len(texts)) if texts[i]), None)
+    body_ok = keywords is not None and abstract is not None and keywords > abstract and body is not None and boundary_has_break(keywords, body)
+    audit.check("keywords-to-main-text boundary page break", body_ok, "Main text starts a new page after Keywords")
 
 
 def paragraph_style_id(paragraph_element) -> str | None:
