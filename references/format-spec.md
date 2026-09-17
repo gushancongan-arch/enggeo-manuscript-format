@@ -140,3 +140,7 @@ Before delivery, verify at minimum:
 - Supplementary-material and declaration wording.
 
 Do not label provisional items confirmed until the user approves them or an authoritative target-journal instruction is verified.
+
+## Required Office engine
+
+Microsoft Word installed on the user's Windows computer is the authoritative engine for editing, pagination, preview and PDF export. Use the skill's `scripts/export_word_pdf.ps1` for read-only Word PDF export. Python/OpenXML may assist structural generation and audits. Do not use LibreOffice/soffice or a generic DOCX renderer that uses it unless explicitly requested by the user. If Word cannot run, report the actual blocker and distinguish completed structural checks from pending visual review. Protect existing Word documents, citation fields and external links.
